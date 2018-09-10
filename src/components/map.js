@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 import '../styles/map.css'
-import { coordinates, coordinatesAndLocations} from '../constants/trailCoordinates'
+import { coordinates, coordinatesAndLocations, maxBounds} from '../constants/trailCoordinates'
 
 mapboxgl.accessToken = "pk.eyJ1Ijoid2lsbC1mZXJlbnMiLCJhIjoiY2pra2o0ZDFmMGlybzNxcGowMnBkOGcwOCJ9.SakByvxcSSfCGnlG5A8MbQ"
 
@@ -22,7 +22,8 @@ class Map extends Component {
             container: this.container,
             style: 'mapbox://styles/mapbox/outdoors-v10',
             center: [lng, lat],
-            zoom: zoom
+            zoom: zoom,
+            maxBounds: maxBounds
         })
         map.on('load', () => {
             map.addLayer({
@@ -48,6 +49,37 @@ class Map extends Component {
                     "line-width": 2
                 }
             })
+            const features = coordinatesAndLocations.reduce((accumulator, current) => {
+                accumulator.push({
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [current.longitude, current.latitude]
+                    },
+                    "properties": {
+                        "title": current.location,
+                    }
+                })
+                return accumulator
+            },[])
+            map.addLayer({
+                "id": "points",
+                "type": "symbol",
+                "source": {
+                    "type": "geojson",
+                    "data": {
+                        "type": "FeatureCollection",
+                        "features": features
+                    }
+                },
+                "layout": {
+                    "icon-image": "{icon}-15",
+                    "text-field": "{title}",
+                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                    "text-offset": [0, 0.6],
+                    "text-anchor": "top"
+                }
+            })
         })
         map.on('move', () => {
             const { lng, lat } = map.getCenter()
@@ -58,6 +90,10 @@ class Map extends Component {
                 zoom: map.getZoom().toFixed(2)
             })
 
+
+        })
+        map.on('click', (event) => {
+            console.log(event.lngLat)
         })
     }
 

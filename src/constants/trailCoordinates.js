@@ -9,7 +9,7 @@ const coordinatesAndLocations = [{
         longitude: -119.55651513546957
     },
     {
-        location: 'Bridge @ Bathroom',
+        location: 'Nevada Bridge',
         latitude: 37.72409535042506,
         longitude: -119.55002186435803
     },
@@ -810,4 +810,7 @@ const coordinates = [
     [ -118.249495358071, 36.57324125072289 ],
     [ -118.2392997937642, 36.5849403480409 ]
 ]
-export {coordinates, coordinatesAndLocations} 
+
+const maxBounds = [[-120.3402569321336, 36.50476356250478], [-117.39914210102626, 38.074232309830364]]
+
+export {coordinates, coordinatesAndLocations, maxBounds} 
