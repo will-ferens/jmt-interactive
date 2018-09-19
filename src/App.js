@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import MapWrapper from './components/map'
+import Details from './components/details'
 
 import  './styles/app.css'
 
@@ -16,6 +17,7 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <div className="app">
+          <Details />
           <MapWrapper />
         </div>
       </ApolloProvider>

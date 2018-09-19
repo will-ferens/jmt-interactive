@@ -2,8 +2,8 @@ import React from 'react'
 import ReactMapboxGl, { Layer, Feature, Source } from 'react-mapbox-gl'
 import '../styles/map.css'
 
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import TrailQuery from './trail_query'
+import FeaturesCollection from '../containers/features_query'
 
 const TOKEN = 'pk.eyJ1Ijoid2lsbC1mZXJlbnMiLCJhIjoiY2pra2o0ZDFmMGlybzNxcGowMnBkOGcwOCJ9.SakByvxcSSfCGnlG5A8MbQ'
 const style = 'mapbox://styles/mapbox/outdoors-v10'
@@ -26,48 +26,8 @@ const MapWrapper = () => {
                 width: "100vw"
             }}
         >
-            <Query query={gql`
-                {
-                    trail_coordinates {
-                        type 
-                        features {
-                            geometry {
-                                type
-                                coordinates
-                            }
-                        }
-                    } 
-                }
-            `}>
-                {({ loading, error, data }) => {
-                    const TRAIL_COORDINATES_SOURCE = {
-                        "type": "geojson",
-                        "data": {
-                            "type": "Feature",
-                            "geometry": {
-                                    "type": "LineString",
-                                    "coordinates": data.features
-                                }
-                        }
-                    }
-                    if (loading) return <p>Loading..</p>
-                    if(error) return <p>Error: {error}</p>
-                    data.trail_coordinates.features.map(current => {
-                        console.log(current)
-                    })
-                    return (
-                        <div>
-                            <Source id="trail_coordinates_id" geoJsonSource={TRAIL_COORDINATES_SOURCE} />
-                            <Layer 
-                                id="trail_layer"
-                                type="line"
-                                sourceId="trail_coordinates_id"
-                            >
-                            </Layer>
-                        </div>
-                    )
-                }}
-            </Query>
+            <TrailQuery />
+            <FeaturesCollection />
         </Map>
 
     )
