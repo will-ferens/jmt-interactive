@@ -1,13 +1,24 @@
 import React, { Component } from 'react'
+
+import MapWrapper from './components/map'
+
 import  './styles/app.css'
-import Map from './components/map'
+
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql"
+})
 
 class App extends Component {
   render() {
     return (
-      <div className="app">
-        <Map />
-      </div>
+      <ApolloProvider client={client}>
+        <div className="app">
+          <MapWrapper />
+        </div>
+      </ApolloProvider>
     )
   }
 }
