@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Layer, Source, Feature } from 'react-mapbox-gl'
+import React from 'react'
+import { Layer, Source } from 'react-mapbox-gl'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -25,8 +25,7 @@ const query = gql`
     }
 `
 
-class FeaturesCollection extends Component {
-    render() {
+const FeaturesCollection = () => {
         return (
             <Query query={query}>
                 {({ loading, error, data}) => {
@@ -42,7 +41,9 @@ class FeaturesCollection extends Component {
                                 "coordinates": current.geometry.coordinates
                             },
                             "properties": {
-                                "title": current.properties.location
+                                "title": current.properties.location,
+                                "coordinates": current.geometry.coordinates,
+                                "picture": current.properties.pictureURL
                             }
                         })
                         return accumulator
@@ -77,7 +78,6 @@ class FeaturesCollection extends Component {
                 }}
             </Query>
         )
-    }
 }
 
                 

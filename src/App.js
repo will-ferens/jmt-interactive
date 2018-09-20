@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import MapWrapper from './components/map'
-import Details from './components/details'
+import MapWrapper from './containers/map'
+import Details from './containers/details'
 
 import  './styles/app.css'
 
