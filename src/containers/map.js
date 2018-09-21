@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactMapboxGl from 'react-mapbox-gl'
 
+import { setMapState } from '../actions/set_map'
 import { selectFeature } from '../actions/select_feature'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -44,10 +45,10 @@ class MapWrapper extends Component {
         const features = map.queryRenderedFeatures(event.point)
         let selectedFeature = features[0].properties
         let scrubbedCoordinates = selectedFeature.coordinates.replace(/"/g, " ")
-        
+        console.log(scrubbedCoordinates[0])
 
         this.props.selectFeature(selectedFeature)
-
+        //this.props.setMapState(scrubbedCoordinates)
     }
 }
 
@@ -58,7 +59,7 @@ const mapStateToProps = (state) => {
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({ selectFeature }, dispatch)
+    return bindActionCreators({ selectFeature, setMapState }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapWrapper)
