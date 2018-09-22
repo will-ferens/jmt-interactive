@@ -19,6 +19,8 @@ const query = gql`
                 properties {
                     pictureURL
                     location
+                    mile
+                    elevation
                 }
             }
         }
@@ -43,7 +45,9 @@ const FeaturesCollection = () => {
                             "properties": {
                                 "title": current.properties.location,
                                 "coordinates": current.geometry.coordinates,
-                                "picture": current.properties.pictureURL
+                                "picture": current.properties.pictureURL,
+                                "mile": current.properties.mile,
+                                "elevation": current.properties.elevation
                             }
                         })
                         return accumulator

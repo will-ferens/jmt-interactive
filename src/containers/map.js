@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactMapboxGl from 'react-mapbox-gl'
 
+
 import { setMapState } from '../actions/set_map'
 import { selectFeature } from '../actions/select_feature'
 import { bindActionCreators } from 'redux'
@@ -12,7 +13,6 @@ import TrailQuery from '../components/trail_query'
 import FeaturesCollection from '../components/features_query'
 
 const TOKEN = 'pk.eyJ1Ijoid2lsbC1mZXJlbnMiLCJhIjoiY2pra2o0ZDFmMGlybzNxcGowMnBkOGcwOCJ9.SakByvxcSSfCGnlG5A8MbQ'
-
 
 const Map = ReactMapboxGl({
     accessToken: TOKEN,
@@ -44,11 +44,10 @@ class MapWrapper extends Component {
     _onMapFeatureClick = (map, event) => {
         const features = map.queryRenderedFeatures(event.point)
         let selectedFeature = features[0].properties
-        let scrubbedCoordinates = selectedFeature.coordinates.replace(/"/g, " ")
-        console.log(scrubbedCoordinates[0])
-
+        let scrubbedCoordinates = JSON.parse(selectedFeature.coordinates)
+        console.log(selectedFeature)
         this.props.selectFeature(selectedFeature)
-        //this.props.setMapState(scrubbedCoordinates)
+        this.props.setMapState(scrubbedCoordinates)
     }
 }
 
