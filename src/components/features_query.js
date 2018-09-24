@@ -21,6 +21,7 @@ const query = gql`
                     location
                     mile
                     elevation
+                    description
                 }
             }
         }
@@ -47,7 +48,8 @@ const FeaturesCollection = () => {
                                 "coordinates": current.geometry.coordinates,
                                 "picture": current.properties.pictureURL,
                                 "mile": current.properties.mile,
-                                "elevation": current.properties.elevation
+                                "elevation": current.properties.elevation,
+                                "description": current.properties.description
                             }
                         })
                         return accumulator

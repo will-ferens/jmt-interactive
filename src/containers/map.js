@@ -11,7 +11,7 @@ import '../styles/map.css'
 
 import TrailQuery from '../components/trail_query'
 import FeaturesCollection from '../components/features_query'
-
+import { maxBounds } from '../constants/map_constants'
 const TOKEN = 'pk.eyJ1Ijoid2lsbC1mZXJlbnMiLCJhIjoiY2pra2o0ZDFmMGlybzNxcGowMnBkOGcwOCJ9.SakByvxcSSfCGnlG5A8MbQ'
 
 const Map = ReactMapboxGl({
@@ -24,15 +24,11 @@ class MapWrapper extends Component {
         const mapState = this.props.mapState
 
         return (
-
             <Map
                 style="mapbox://styles/mapbox/outdoors-v10"
                 center={ mapState.center }
                 zoom={ mapState.zoom }
-                containerStyle={{
-                    height: "100vh",
-                    width: "100vw"
-                }} 
+                maxBounds={ maxBounds }
                 onClick={this._onMapFeatureClick}
                 >
                 <TrailQuery />
@@ -45,7 +41,7 @@ class MapWrapper extends Component {
         const features = map.queryRenderedFeatures(event.point)
         let selectedFeature = features[0].properties
         let scrubbedCoordinates = JSON.parse(selectedFeature.coordinates)
-        console.log(selectedFeature)
+
         this.props.selectFeature(selectedFeature)
         this.props.setMapState(scrubbedCoordinates)
     }

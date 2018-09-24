@@ -1,8 +1,8 @@
 import { setMapStateActions } from '../constants/action_constants'
 
 const initialState = {
-    center: [-119.57305556, 37.73944444],
-    zoom: [ 10 ],
+    center: [-118.9225380061228, 37.41019343669283],
+    zoom: [ 9 ],
 }
 
 export default function(state = initialState, action) {
@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 center: action.payload,
-                zoom: [ 10 ]
+                zoom: [ 11 ]
             }
         
         default:
