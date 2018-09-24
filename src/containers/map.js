@@ -39,9 +39,9 @@ class MapWrapper extends Component {
     }
     _onMapFeatureClick = (map, event) => {
         const features = map.queryRenderedFeatures(event.point)
-        let selectedFeature = features[0].properties
-        let scrubbedCoordinates = JSON.parse(selectedFeature.coordinates)
-
+        const selectedFeature = features[0].properties
+        const scrubbedCoordinates = JSON.parse(selectedFeature.coordinates)
+        console.log(selectedFeature)
         this.props.selectFeature(selectedFeature)
         this.props.setMapState(scrubbedCoordinates)
     }
